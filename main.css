@@ -1,0 +1,39 @@
+#detailed-table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+  }
+  
+  #detailed-table td, #detailed-table th {
+    border: 1px solid lightgray;
+    padding: 4px;
+  }
+  
+  #detailed-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  #item {
+    background: #e0e0e0;
+    width: fit-content;
+  }
+
+  #display{
+    display: flex;
+    flex-direction: column;
+  }
+
+  #general td {
+    border-bottom: 1px solid #ffffff;
+    text-align: right;
+    color: #15607a;
+    background: #ddebec;
+  }
+
+  .view {
+    border-top: 1px solid #ffffff00;
+    font-size: 250%;
+  }
