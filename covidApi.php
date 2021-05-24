@@ -3,9 +3,11 @@
 // get history covid data
 function getHistoricalData(){
 
-    $history_url = "https://disease.sh/v3/covid-19/historical/all?country=Kenya&lastdays=all";
+    $history_url = "https://disease.sh/v3/covid-19/historical/kenya?&lastdays=all";
 
     $covid_history = getData($history_url);
+
+    $covid_history = $covid_history["timeline"];
 
     return $covid_history;
 
