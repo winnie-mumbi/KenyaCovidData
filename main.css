@@ -21,9 +21,24 @@
     width: fit-content;
   }
 
+  #top-display{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
   #display{
     display: flex;
     flex-direction: column;
+  }
+
+  #general {  
+  
+    height: 50%;
+  }
+
+  #general tr {
+    padding:0;
   }
 
   #general td {

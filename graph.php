@@ -1,80 +1,73 @@
 <?php
-include 'server.php';
+include 'covidApi.php';
 
 require_once ('jpgraph-4.3.4/src/jpgraph.php');
 require_once ('jpgraph-4.3.4/src/jpgraph_line.php');
-require_once ('jpgraph-4.3.4/src/themes/UniversalTheme.class.php');
+require_once ('jpgraph-4.3.4/src/jpgraph_utils.inc.php');
 
 $covid_history = getHistoricalData();
 
+// retrieve respective options array i.e totalcases, total deaths and total recovered
 $covid_deaths = $covid_history['deaths'];
 $covid_recovered = $covid_history['recovered'];
+$covid_cases = $covid_history['cases'];
 
-$x_deaths = array_keys($covid_deaths);
+// get values for each i.e totalcases, total deaths and total recovered; y represents the y-axis
+$y_cases = array_values($covid_cases);
+$y_recovered = array_values($covid_recovered);
 $y_deaths = array_values($covid_deaths);
 
-$x_recovered = array_keys($covid_recovered);
-$y_recovered = array_values($covid_recovered);
+// get dates for the covid data; x is for x-axis
+$timestamps = array_keys($covid_deaths);
 
-$x_cases = array_keys($covid_deaths);
-$y_cases = array_values($covid_deaths);
-//print_r($x_data);
+$x_timestamps = array();
 
-//Setup the graph
+// convert the dates to timestamps
+foreach($timestamps as $time){
+    array_push($x_timestamps, strtotime($time));
+}
+
+// create tick positions for the dates 
+$dateUtils = new DateScaleUtils();
+list($tickPositions,$minTickPositions) = array_filter(array_map('array_filter',$dateUtils->getTicks($x_timestamps)));
+
+// creating the graph
 $graph = new Graph(1000,600);
-$graph->SetScale("textlin");
+$graph->SetScale("intlin");
+$graph->xaxis->SetTickPositions($tickPositions,$minTickPositions);
+$graph->xaxis->SetLabelFormatString('My',true);
 
-$theme_class=new UniversalTheme;
 
-$graph->SetTheme($theme_class);
-$graph->img->SetAntiAliasing(false);
 $graph->title->Set('Kenya Covid Data');
-$graph->SetBox(false);
+// $graph->SetBox(false);
 
-//$graph->SetMargin(40,20,36,63);
-
-$months = array(
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July ',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-);
-
-$graph->img->SetAntiAliasing();
+$graph->SetMargin(100,20,36,130);
 
 $graph->yaxis->HideZeroLabel();
 $graph->yaxis->HideLine(false);
 $graph->yaxis->HideTicks(false,false);
 
 $graph->xgrid->Show();
-$graph->xgrid->SetLineStyle("solid");
-//$graph->xaxis->SetScale('datlin',0,100);
-$graph->xaxis->SetTickLabels($months);
+//$graph->xgrid->SetLineStyle("solid");
 $graph->xgrid->SetColor('#E3E3E3');
 
-// Create the first line
-$p1 = new LinePlot($y_deaths);
+// Create the line for total cases
+$p1 = new LinePlot($y_cases,$x_timestamps);
 $graph->Add($p1);
 $p1->SetColor("#6495ED");
-$p1->SetLegend('Line 1');
+$p1->SetLegend('New cases');
 
-$p1 = new LinePlot($y_recovered);
+$p1 = new LinePlot($y_deaths,$x_timestamps);
 $graph->Add($p1);
-$p1->SetColor("#B22222");
-$p1->SetLegend('Line 1');
+$p1->SetColor("#FF0000");
+$p1->SetLegend('Deaths');
 
-// $p1 = new LinePlot($y_data);
-// $graph->Add($p1);
-// $p1->SetColor("#6495ED");
-// $p1->SetLegend('Line 1');
+$p1 = new LinePlot($y_recovered,$x_timestamps);
+$graph->Add($p1);
+$p1->SetColor("#FFA500");
+$p1->SetLegend('Recovered');
+
+
 
 $graph->legend->SetFrameWeight(1);
 

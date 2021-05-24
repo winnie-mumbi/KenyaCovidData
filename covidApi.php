@@ -1,8 +1,9 @@
 <?php
 
+// get history covid data
 function getHistoricalData(){
 
-    $history_url = "https://disease.sh/v3/covid-19/historical/all?country=Kenya";
+    $history_url = "https://disease.sh/v3/covid-19/historical/all?country=Kenya&lastdays=all";
 
     $covid_history = getData($history_url);
 
@@ -10,6 +11,7 @@ function getHistoricalData(){
 
 }
 
+// get general covid data
 function getGeneralData(){
 
     $url = "https://disease.sh/v3/covid-19/countries/kenya";
@@ -20,6 +22,7 @@ function getGeneralData(){
 
 }
 
+// et data using curl
 function getData($url){
     //Initiate curl session in a variable
     $curl_handle = curl_init();
@@ -27,7 +30,6 @@ function getData($url){
     // Set the curl URL option
     curl_setopt($curl_handle, CURLOPT_URL, $url);
 
-    // This option will return data as a string instead of direct output
     curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
 
     // Execute curl & store data in a variable
@@ -35,7 +37,7 @@ function getData($url){
 
     curl_close($curl_handle);
 
-    // // Decode JSON into PHP array
+    // Decode JSON into PHP array
     $response_data = json_decode($curl_data,true);
 
     return $response_data;
