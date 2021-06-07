@@ -1,8 +1,9 @@
 <?php
-require_once 'vendor/autoload.php';
+require_once './vendor/amenadiel/jpgraph/src/config.inc.php';
 include 'covidApi.php';
 
-use Amenadiel\JpGraph\Graph;
+
+use Amenadiel\JpGraph\Graph\Graph;
 use Amenadiel\JpGraph\Plot;
 use Amenadiel\JpGraph\Util;
 
@@ -30,10 +31,13 @@ foreach($timestamps as $time){
 
 // create tick positions for the dates 
 $dateUtils = new Util\DateScaleUtils();
+
+// using array filter and map to remove empty arrays created
 list($tickPositions,$minTickPositions) = array_filter(array_map('array_filter',$dateUtils->getTicks($x_timestamps)));
-print_r($dateUtils);
-// creating the graph
-$graph = new Graph\Graph(1000,600);
+
+// // creating the graph
+$graph = new Graph(1000,600);
+
 $graph->SetScale("intlin");
 $graph->xaxis->SetTickPositions($tickPositions,$minTickPositions);
 $graph->xaxis->SetLabelFormatString('My',true);
@@ -57,6 +61,7 @@ $p1 = new PLot\LinePlot($y_cases,$x_timestamps);
 $graph->Add($p1);
 $p1->SetColor("#6495ED");
 $p1->SetLegend('New cases');
+
 
 $p1 = new PLot\LinePlot($y_deaths,$x_timestamps);
 $graph->Add($p1);
