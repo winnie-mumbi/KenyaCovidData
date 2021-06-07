@@ -1,9 +1,10 @@
 <?php
+require_once 'vendor/autoload.php';
 include 'covidApi.php';
 
-require_once ('jpgraph-4.3.4/src/jpgraph.php');
-require_once ('jpgraph-4.3.4/src/jpgraph_line.php');
-require_once ('jpgraph-4.3.4/src/jpgraph_utils.inc.php');
+use Amenadiel\JpGraph\Graph;
+use Amenadiel\JpGraph\Plot;
+use Amenadiel\JpGraph\Util;
 
 $covid_history = getHistoricalData();
 
@@ -28,11 +29,11 @@ foreach($timestamps as $time){
 }
 
 // create tick positions for the dates 
-$dateUtils = new DateScaleUtils();
+$dateUtils = new Util\DateScaleUtils();
 list($tickPositions,$minTickPositions) = array_filter(array_map('array_filter',$dateUtils->getTicks($x_timestamps)));
-
+print_r($dateUtils);
 // creating the graph
-$graph = new Graph(1000,600);
+$graph = new Graph\Graph(1000,600);
 $graph->SetScale("intlin");
 $graph->xaxis->SetTickPositions($tickPositions,$minTickPositions);
 $graph->xaxis->SetLabelFormatString('My',true);
@@ -52,17 +53,17 @@ $graph->xgrid->Show();
 $graph->xgrid->SetColor('#E3E3E3');
 
 // Create the line for total cases
-$p1 = new LinePlot($y_cases,$x_timestamps);
+$p1 = new PLot\LinePlot($y_cases,$x_timestamps);
 $graph->Add($p1);
 $p1->SetColor("#6495ED");
 $p1->SetLegend('New cases');
 
-$p1 = new LinePlot($y_deaths,$x_timestamps);
+$p1 = new PLot\LinePlot($y_deaths,$x_timestamps);
 $graph->Add($p1);
 $p1->SetColor("#FF0000");
 $p1->SetLegend('Deaths');
 
-$p1 = new LinePlot($y_recovered,$x_timestamps);
+$p1 = new Plot\LinePlot($y_recovered,$x_timestamps);
 $graph->Add($p1);
 $p1->SetColor("#FFA500");
 $p1->SetLegend('Recovered');
