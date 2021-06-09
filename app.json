@@ -2,5 +2,5 @@
     "name": "Kenya Covid Data Visualization",
     "description": "Displays the current covid information for Kenya",
     "repository": "https://github.com/Shizler/KenyaCovidData",
-    "keywords": ["php", "jpgraph"]
+    "keywords": ["php7", "jpgraph"]
   }
