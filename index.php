@@ -33,7 +33,7 @@ $covid_vaccination = array_values($covid_vaccination);
                     <div class="text" style="color: white"><?= number_format($covid_data['deaths']) ?></div>
                 </div>
                 <div class="dock-element">
-                    <div class="dock-title">Deaths</div>
+                    <div class="dock-title">Recovered</div>
                     <div class="text" style="color: orange"><?= number_format($covid_data['recovered']) ?></div>
                 </div>
                 <div class="dock-element">
