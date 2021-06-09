@@ -1,3 +1,5 @@
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 This a web application that displays covid data consumed from 'https://disease.sh/' api  
 **Prequisites**  
 - PHP
