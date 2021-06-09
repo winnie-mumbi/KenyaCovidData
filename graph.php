@@ -36,25 +36,34 @@ $dateUtils = new Util\DateScaleUtils();
 list($tickPositions,$minTickPositions) = array_filter(array_map('array_filter',$dateUtils->getTicks($x_timestamps)));
 
 // // creating the graph
-$graph = new Graph(1000,600);
+$graph = new Graph(800,600);
 
 $graph->SetScale("intlin");
+$graph->SetMarginColor('#222');
+$graph->SetFrame(true,'#222');
+$graph->SetColor('white');
+
 $graph->xaxis->SetTickPositions($tickPositions,$minTickPositions);
 $graph->xaxis->SetLabelFormatString('My',true);
+$graph->xaxis->SetColor('white');
 
 
 $graph->title->Set('Kenya Covid Data');
-// $graph->SetBox(false);
+$graph->title->SetColor('white');
+$graph->SetColor('black');
 
-$graph->SetMargin(100,20,36,130);
+$graph->SetMargin(60,20,60,120);
 
 $graph->yaxis->HideZeroLabel();
 $graph->yaxis->HideLine(false);
 $graph->yaxis->HideTicks(false,false);
+$graph->yaxis->SetColor('white');
+$graph->ygrid->Show(false, false);
+
 
 $graph->xgrid->Show();
 //$graph->xgrid->SetLineStyle("solid");
-$graph->xgrid->SetColor('#E3E3E3');
+$graph->xgrid->SetColor('black');
 
 // Create the line for total cases
 $p1 = new PLot\LinePlot($y_cases,$x_timestamps);

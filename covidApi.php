@@ -24,6 +24,18 @@ function getGeneralData(){
 
 }
 
+// get general covid data
+function getVaccinationData(){
+
+    $url = "https://disease.sh/v3/covid-19/vaccine/coverage/countries/Kenya?lastdays=1";
+
+    $covid_vaccination = getData($url);
+    print_r('afasdfasdf',$covid_vaccination);
+
+    return $covid_vaccination["timeline"];
+
+}
+
 // et data using curl
 function getData($url){
     //Initiate curl session in a variable
@@ -44,5 +56,7 @@ function getData($url){
 
     return $response_data;
 }
+
+
 
 ?>
