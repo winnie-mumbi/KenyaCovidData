@@ -1,4 +1,4 @@
-[Kenya Covid Dashboard](https://heroku.com/deploy?template=https://github.com/Shizler/KenyaCovidData/tree/deploy)
+[Kenya Covid Dashboard](https://kenya-covid-data.herokuapp.com/)
 
 This a web application that displays covid data consumed from 'https://disease.sh/' api  
 **Prequisites**  
