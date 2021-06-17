@@ -3,9 +3,11 @@
 // get history covid data
 function getHistoricalData(){
 
-    $history_url = "https://disease.sh/v3/covid-19/historical/all?country=Kenya&lastdays=all";
+    $history_url = "https://disease.sh/v3/covid-19/historical/kenya?&lastdays=all";
 
     $covid_history = getData($history_url);
+
+    $covid_history = $covid_history["timeline"];
 
     return $covid_history;
 
@@ -19,6 +21,18 @@ function getGeneralData(){
     $covid_general = getData($url);
 
     return $covid_general;
+
+}
+
+// get general covid data
+function getVaccinationData(){
+
+    $url = "https://disease.sh/v3/covid-19/vaccine/coverage/countries/Kenya?lastdays=1";
+
+    $covid_vaccination = getData($url);
+    print_r('afasdfasdf',$covid_vaccination);
+
+    return $covid_vaccination["timeline"];
 
 }
 
@@ -42,5 +56,7 @@ function getData($url){
 
     return $response_data;
 }
+
+
 
 ?>
